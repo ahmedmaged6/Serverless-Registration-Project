@@ -14,21 +14,22 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
       rel="stylesheet"
     />
+
     <style>
       label {
         margin-top: 25px;
       }
     </style>
-    <script src="script.js" defer></script>
   </head>
+
   <body>
     <div class="background">
       <div class="shape"></div>
       <div class="shape"></div>
     </div>
+
     <form id="signup-form">
       <h3>Signup Here</h3>
-
       <div class="name-container">
         <div>
           <label for="first-name">First Name</label>
@@ -67,5 +68,84 @@
         <div class="fb"><i class="fab fa-facebook"></i> Facebook</div>
       </div>
     </form>
+
+        <!-- Confirmation Code Modal -->
+        <div id="confirmation-modal" class="modal">
+          <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Enter Confirmation Code Sent to your Email</h3>
+            <label for="confirmation-code">Code</label>
+            <input type="text" id="confirmation-code" required />
+            <button id="confirm-button" onclick="confirmSignup()">Confirm</button>
+
+    <script>
+      document.getElementById('signup-form').addEventListener('submit', async function (event) {
+        event.preventDefault();
+    
+        const firstName = document.getElementById('first-name').value;
+        const secondName = document.getElementById('second-name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+    
+        try {
+          const response = await fetch('https://qbuntqmic6.execute-api.us-east-2.amazonaws.com/SecondStage/signup', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              firstName: firstName,
+              secondName: secondName,
+              email: email,
+              password: password
+            })
+          });
+    
+          if (response.ok) {
+              // Show the confirmation code modal4\
+           // alert('Signup Success');
+            document.getElementById("confirmation-modal").style.display = "block";
+          } else {
+            const errorData = await response.json();
+            alert('Signup failed: ' + errorData.message);
+          }
+        } catch (error) {
+          alert('Error: ' + error.message);
+        }
+      });
+
+// Function to close the modal
+function closeModal() {
+  document.getElementById("confirmation-modal").style.display = "none";
+}
+
+// Function to confirm signup
+async function confirmSignup() {
+  const email = document.getElementById("email").value; // Use the same email entered during signup
+  const confirmationCode = document.getElementById("confirmation-code").value;
+
+  const response = await fetch("https://qbuntqmic6.execute-api.us-east-2.amazonaws.com/SecondStage/confirmationCode", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email: email,
+      confirmationCode: confirmationCode
+    })
+  });
+
+  if (response.ok) {
+    alert("Account confirmed successfully!");
+    closeModal(); // Close the modal
+    window.location.href = "login.html"; // Redirect to login page
+  } else {
+    const error = await response.json();
+    alert(error.message);
+  }
+}      
+    </script>
+    
+
   </body>
 </html>
