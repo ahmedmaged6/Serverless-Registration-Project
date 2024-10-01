@@ -4,7 +4,11 @@ import boto3
 client = boto3.client('cognito-idp')
 
 def lambda_handler(event, context):
-    body = json.loads(event['body'])
+    if 'body' in event and event['body']:
+        body = json.loads(event['body'])
+    else:
+        body = event
+        
     first_name = body['firstName']
     second_name = body['secondName']
     email = body['email']
