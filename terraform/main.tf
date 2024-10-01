@@ -4,6 +4,12 @@ provider "aws" {
 }
 
 
+                              #Cognito Implementation
+
+
+
+                              #Lambda Implementation
+
 #IAM Execution Role for all lambda functions
 data "aws_iam_policy_document" "assume_role" {
   statement {
@@ -35,7 +41,7 @@ resource "aws_lambda_function" "signup_lambda" {
   filename      = "${path.module}/lambda_zipped/signup_payload.zip"
   function_name = "signup_lambda"
   role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "index.lambda_handler"
+  handler       = "signup.lambda_handler"
   source_code_hash = data.archive_file.signup_lambda_zip_file.output_base64sha256
   runtime = "python3.12"
 }
@@ -52,7 +58,7 @@ resource "aws_lambda_function" "confirm_lambda" {
   filename      = "${path.module}/lambda_zipped/confirmation_code_payload.zip"
   function_name = "confirmation_code_lambda"
   role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "index.lambda_handler"
+  handler       = "confirmation_code.lambda_handler"
   source_code_hash = data.archive_file.confirmation_code_zip_file.output_base64sha256
   runtime = "python3.12"
 }
@@ -69,7 +75,7 @@ resource "aws_lambda_function" "login_lambda" {
   filename      = "${path.module}/lambda_zipped/login_payload.zip"
   function_name = "login_lambda"
   role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "index.lambda_handler"
+  handler       = "login.lambda_handler"
   source_code_hash = data.archive_file.login_lambda_zip_file.output_base64sha256
   runtime = "python3.12"
 }
@@ -85,7 +91,13 @@ resource "aws_lambda_function" "profile_lambda" {
   filename      = "${path.module}/lambda_zipped/profile_payload.zip"
   function_name = "profile_lambda"
   role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "index.lambda_handler"
+  handler       = "profile.lambda_handler"
   source_code_hash = data.archive_file.profile_lambda_zip_file.output_base64sha256
   runtime = "python3.12"
 }
+
+                              #API GW Implementation
+
+
+
+
