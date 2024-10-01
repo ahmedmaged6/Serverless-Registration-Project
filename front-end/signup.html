@@ -100,14 +100,15 @@
               password: password
             })
           });
-    
-          if (response.ok) {
-              // Show the confirmation code modal4\
-           // alert('Signup Success');
+          
+          const responseData = await response.json();
+          const body = JSON.parse(responseData.body);
+          const message = body.message;
+
+          if (responseData.statusCode==200) {
             document.getElementById("confirmation-modal").style.display = "block";
           } else {
-            const errorData = await response.json();
-            alert('Signup failed: ' + errorData.message);
+            alert('Signup failed: ' + message);
           }
         } catch (error) {
           alert('Error: ' + error.message);

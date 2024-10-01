@@ -72,12 +72,9 @@
                     }),
                   }
                 );
-        
-                // Log the response to see its structure
+
                 const responseData = await response.json();
-                const bodyContent = JSON.parse(responseData.body);  //converts the JSON string into a native JavaScript object.
-                const data = bodyContent.data;
-                
+                const data = responseData.data;                
 
                 //for logging
                 console.log("Fetch Response:", response);
@@ -88,7 +85,7 @@
                   // Access the token from the correct location in the response
                   if (data && data.AccessToken) {
                     localStorage.setItem("access_token", data.AccessToken);
-                   window.location.href = "profile.html";
+                    window.location.href = "profile.html";
                   } else {
                     alert("Login failed: No access token received.");
                   }
