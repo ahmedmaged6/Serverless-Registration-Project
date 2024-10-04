@@ -1,85 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <title>Signup</title>
 
     <link rel="stylesheet" href="styles.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"rel="stylesheet"/>
+    <style>label {margin-top: 25px;}</style>
 
-    <style>
-      label {
-        margin-top: 25px;
-      }
-    </style>
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="background">
-      <div class="shape"></div>
-      <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
     </div>
 
     <form id="signup-form">
-      <h3>Signup Here</h3>
-      <div class="name-container">
+    <h3>Signup Here</h3>
+    <div class="name-container">
         <div>
-          <label for="first-name">First Name</label>
-          <input
-            style="width: 155px"
-            type="text"
-            placeholder="First Name"
-            id="first-name"
-            required
-          />
-        </div>
+            <label for="first-name">First Name</label>
+            <input style="width: 155px" type="text" placeholder="First Name" id="first-name" required/>
+        </div>`
         <div>
-          <label for="second-name">Second Name</label>
-          <input
-            style="width: 155px"
-            type="text"
-            placeholder="Second Name"
-            id="second-name"
-            required
-          />
+            <label for="second-name">Second Name</label>
+            <input style="width: 155px" type="text" placeholder="Second Name" id="second-name" required/>
         </div>
-      </div>
+    </div>
 
-      <label for="email">Email</label>
-      <input type="email" placeholder="Email" id="email" required />
+    <label for="email">Email</label>
+    <input type="email" placeholder="Email" id="email" required />
 
-      <label for="password">Password</label>
-      <input type="password" placeholder="Password" id="password" required />
+    <label for="password">Password</label>
+    <input type="password" placeholder="Password" id="password" required />
 
-      <button type="submit">Create Account</button>
-      <p class="login-message">
-        Already have an account? <a href="login.html">Login</a>
-      </p>
-      <div class="social">
+    <button type="submit">Create Account</button>
+
+    <p class="login-message">Already have an account? <a href="login.html">Login</a></p>
+    
+    <!-- For Future Use
+    <div class="social">
         <div class="go"><i class="fab fa-google"></i> Google</div>
         <div class="fb"><i class="fab fa-facebook"></i> Facebook</div>
-      </div>
+    </div>
+    -->
     </form>
 
-        <!-- Confirmation Code Modal -->
-        <div id="confirmation-modal" class="modal">
-          <div class="modal-content">
+    <!-- Confirmation Code Modal -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
+            
             <h3>Enter Confirmation Code Sent to your Email</h3>
+            
             <label for="confirmation-code">Code</label>
             <input type="text" id="confirmation-code" required />
+            
             <button id="confirm-button" onclick="confirmSignup()">Confirm</button>
+        </div> 
+    </div> 
 
     <script>
-      document.getElementById('signup-form').addEventListener('submit', async function (event) {
+        document.getElementById('signup-form').addEventListener('submit', async function (event) {
         event.preventDefault();
     
         const firstName = document.getElementById('first-name').value;
@@ -88,7 +73,7 @@
         const password = document.getElementById('password').value;
     
         try {
-          const response = await fetch('https://qbuntqmic6.execute-api.us-east-2.amazonaws.com/SecondStage/signup', {
+          const response = await fetch('https://w06kmhy9t3.execute-api.us-east-2.amazonaws.com/Development/signup', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -102,6 +87,7 @@
           });
           
           const responseData = await response.json();
+          console.log(responseData)
           const body = JSON.parse(responseData.body);
           const message = body.message;
 
@@ -125,7 +111,7 @@ async function confirmSignup() {
   const email = document.getElementById("email").value; // Use the same email entered during signup
   const confirmationCode = document.getElementById("confirmation-code").value;
 
-  const response = await fetch("https://qbuntqmic6.execute-api.us-east-2.amazonaws.com/SecondStage/confirmationCode", {
+  const response = await fetch("https://w06kmhy9t3.execute-api.us-east-2.amazonaws.com/Development/confirm_code", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
