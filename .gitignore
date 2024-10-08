@@ -39,7 +39,6 @@ override.tf.json
 terraform.rc
 
 
-
 # *.log: This will ignore all .log files in the current directory where the .gitignore file is located. It does not match .log files in subdirectories.
 
 # **/*.log: This will ignore .log files at any level of the directory tree, meaning it will match .log files in the current directory as well as in any subdirectory (e.g., /src/logs/app.log).
