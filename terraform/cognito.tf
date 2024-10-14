@@ -1,3 +1,4 @@
+
 # Define a Cognito User Pool for managing user authentication
 resource "aws_cognito_user_pool" "pool" {
   name = "ServerlessPool"  # The name of the user pool
@@ -33,4 +34,7 @@ resource "aws_cognito_user_pool_client" "app_client_1" {
 
   # Enable explicit authentication flows for the client
   explicit_auth_flows = ["USER_PASSWORD_AUTH"]  # Authentication method
+
+  depends_on = [ aws_cognito_user_pool.pool ]
 }
+
