@@ -1,6 +1,6 @@
 /*
 resource "aws_s3_bucket" "web_bucket" {
-  bucket = "static-web-bucket-66"
+  bucket = var.s3_website_bucket
 }
 
 
@@ -58,5 +58,7 @@ resource "aws_s3_bucket_website_configuration" "example" {
 
 }
 
-
+output "s3_website_url" {
+  value ="${aws_s3_bucket_website_configuration.example.website_endpoint}"  
+}
 */
