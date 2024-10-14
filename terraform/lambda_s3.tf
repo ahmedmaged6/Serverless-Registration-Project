@@ -9,7 +9,7 @@ data "archive_file" "lambda_zip_file" {
 
 resource "aws_s3_bucket" "lambda_zipped" {
     bucket = "lambda-zipped-for-serverless-web"
-  //depends_on = [ aws_cognito_user_pool_client.app_client_1 ]
+    depends_on = [ aws_cognito_user_pool_client.app_client_1 ]
 }
 
 
