@@ -1,12 +1,18 @@
 locals {
   api_url = module.backend_module.api_gateway_url
 }
+variable "s3_website_bucket" {
+  description = "The name of the S3 bucket for hosting the website"
+  type        = string
+}
 
 module "backend_module" {
   source = "./modules/backend-module"
 }
 module "frontend_module" {
   source = "./modules/frontend-module"
+  s3_website_bucket = var.s3_website_bucket
+
   depends_on = [module.backend_module]
 }
 
