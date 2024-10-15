@@ -3,9 +3,8 @@ output "cognito_clientID" {
   description = "cognito client id"
 }
 
-output "api_id" {
-  value = "${aws_api_gateway_rest_api.MyServerlessAPI.id}"
+output "api_gateway_url" {
+  value = "${aws_api_gateway_deployment.deployment.invoke_url}"
 }
-
 
 

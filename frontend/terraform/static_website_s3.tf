@@ -1,4 +1,3 @@
-/*
 resource "aws_s3_bucket" "web_bucket" {
   bucket = var.s3_website_bucket
 }
@@ -39,17 +38,18 @@ data "aws_iam_policy_document" "allow_access_from_internet" {
 }
 
 
-resource "aws_s3_object" "file" {
+resource "aws_s3_object" "object" {
   for_each = toset(var.frontend_paths)
   bucket = aws_s3_bucket.web_bucket.id
   key    = "${each.value}"
-  source = "${path.module}/../front-end/${each.value}"
-  etag = filemd5("${path.module}/../front-end/${each.value}")
-  content_type = each.value=="styles.css"?"text/css":"text/html"
+  source = "${path.module}/../web_src_code/${each.value}"
+  etag = filemd5("${path.module}/../web_src_code/${each.value}")
+  content_type = each.value=="styles.css"?"text/css":each.value=="script.js"?"text/js":"text/html"  #important step!
 }
 
 
-resource "aws_s3_bucket_website_configuration" "example" {
+
+resource "aws_s3_bucket_website_configuration" "web_config" {
   bucket = aws_s3_bucket.web_bucket.id
 
   index_document {
@@ -58,7 +58,3 @@ resource "aws_s3_bucket_website_configuration" "example" {
 
 }
 
-output "s3_website_url" {
-  value ="${aws_s3_bucket_website_configuration.example.website_endpoint}"  
-}
-*/

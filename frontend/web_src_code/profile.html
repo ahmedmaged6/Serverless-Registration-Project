@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+<script src="script.js"></script>
+
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Loading message or spinner -->
+    <div id="loading" class="loading">Loading...</div>
+
+    <form style="height: 470px" id="profile-form">
+        <h3>Your Profile</h3>
+
+        <label for="first-name">First Name</label>
+        <input type="text" placeholder="" id="firstName" disabled>
+
+        <label for="second-name">Last Name</label>
+        <input type="text" placeholder="" id="secondName" disabled>
+
+        <label for="email">Email</label>
+        <input type="email" placeholder="" id="email" disabled>
+
+        <!-- Success message placeholder -->
+        <div class="success-message" id="success-message">
+            Login successful!
+        </div>
+
+        <button type="button" class="logout-btn" onclick="logout()">Logout</button>
+
+    </form>
+
+
+<script>    
+    fetchUserProfile();
+</script>

@@ -4,18 +4,10 @@ variable "region" {
 }
 variable "lambda_zipped_bucket"{
   type=string
+  default = "very-unique-66-lambda"
   description="Enter Unique Name for Lambda Bucket"
 }
 
-variable "s3_website_bucket"{
-  type=string
-  description="Enter Unique Name for Static Website Bucket"
-}
-
-variable "frontend_paths" {
-  type    = list(string)
-  default = ["index.html","signup.html", "login.html", "profile.html","styles.css"]
-}
 variable "lambda_names" {
   type    = list(string)
   default = ["signup", "login", "profile", "confirm_code"]
