@@ -2,6 +2,9 @@ Draft/
 node_modules/
 lambda_zipped/
 notes.txt
+
+**/temp/*
+
 # Local .terraform directories
 **/.terraform/*
 
