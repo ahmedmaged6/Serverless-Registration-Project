@@ -42,9 +42,11 @@ resource "aws_s3_object" "object" {
   for_each = toset(var.frontend_paths)
   bucket = aws_s3_bucket.web_bucket.id
   key    = "${each.value}"
-  source = "${path.module}/../web_src_code/${each.value}"
-  etag = filemd5("${path.module}/../web_src_code/${each.value}")
-  content_type = each.value=="styles.css"?"text/css":each.value=="script.js"?"text/js":"text/html"  #important step!
+  source = "${path.module}/../../../web_src_code/${each.value}"
+  #etag = filemd5("${path.module}/../../../web_src_code/${each.value}")
+  
+  content_type = each.value=="styles.css"?"text/css":each.value=="script.js"?"application/javascript":each.value=="api_url.js"?"application/javascript":"text/html"  #important step!
+
 }
 
 

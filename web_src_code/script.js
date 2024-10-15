@@ -1,7 +1,8 @@
 // Define the base API URL
-const API_URL = 'https://33435q44ue.execute-api.us-east-2.amazonaws.com/Production';
+import { API_URL } from './api_url.js';
 
-                                       //signup & confirm_code Script
+// Signup & Confirm Code Script
+
 // Signup Form Submit Handler
 document.getElementById('signup-form')?.addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -18,9 +19,9 @@ document.getElementById('signup-form')?.addEventListener('submit', async functio
         const response = await fetch(`${API_URL}/signup`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(userData)
+            body: JSON.stringify(userData),
         });
 
         const result = await response.json();
@@ -40,7 +41,7 @@ document.getElementById('signup-form')?.addEventListener('submit', async functio
 });
 
 // Function to confirm signup
-async function confirmSignup() {
+window.confirmSignup = async function confirmSignup() {
     const email = document.getElementById("email").value;
     const confirmationCode = document.getElementById("confirmation-code").value;
 
@@ -48,7 +49,7 @@ async function confirmSignup() {
         const response = await fetch(`${API_URL}/confirm_code`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, confirmationCode })
+            body: JSON.stringify({ email, confirmationCode }),
         });
 
         const result = await response.json();
@@ -65,13 +66,14 @@ async function confirmSignup() {
     } catch (error) {
         alert("Error During Confirm Code: " + error);
     }
-}
+};
 
-function closeModal() {
+window.closeModal = function closeModal() {
     document.getElementById("confirmation-modal").style.display = "none";
-}
+};
 
-                                        //login Script
+// Login Script
+
 // Login Form Submit Handler
 document.getElementById("login-form")?.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -86,7 +88,7 @@ document.getElementById("login-form")?.addEventListener("submit", async function
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password }),
         });
 
         const result = await response.json();
@@ -97,17 +99,17 @@ document.getElementById("login-form")?.addEventListener("submit", async function
             localStorage.setItem("access_token", result.data.AccessToken);
             window.location.href = "profile.html";
         } else {
-            alert("Login failed:" + result.error);
+            alert("Login failed: " + result.error);
         }
     } catch (error) {
-        alert("Error During Login " + error);
+        alert("Error During Login: " + error);
     }
 });
 
-                                        //profile page Script
+// Profile Page Script
 
 // Fetch user details using token
-async function fetchUserProfile() {
+window.fetchUserProfile = async function fetchUserProfile() {
     const token = localStorage.getItem('access_token');
     console.log(token);
 
@@ -117,50 +119,47 @@ async function fetchUserProfile() {
     // Show the loading indicator
     loadingElement.style.display = 'block';
 
-        try {
-            const response = await fetch(`${API_URL}/profile`, {
-                method: 'GET',
-                headers: {
-                    'Authorization':`Bearer ${token}`,
-                    'Content-Type':'application/json'
-                }
-            });
+    try {
+        const response = await fetch(`${API_URL}/profile`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
 
-            if (response.ok) {
-                const data = await response.json();
-                const firstName = data.firstName;
-                const secondName = data.secondName;
-                const email = data.email;
+        if (response.ok) {
+            const data = await response.json();
+            const firstName = data.firstName;
+            const secondName = data.secondName;
+            const email = data.email;
 
-                // Set the greeting text with first ,second name and email
-                document.getElementById('firstName').value = firstName;
-                document.getElementById('secondName').value = secondName;
-                document.getElementById('email').value = email;
+            // Set the profile data
+            document.getElementById('firstName').value = firstName;
+            document.getElementById('secondName').value = secondName;
+            document.getElementById('email').value = email;
 
-                // Hide the loading indicator and show the form
-                loadingElement.style.display = 'none';
-                profileForm.style.display = 'block';
-            } else {
-                console.error('Failed to fetch user details.');
-            }
-        } catch (error) {
-            console.error('Error while trying to view profile', error);
+            // Hide the loading indicator and show the form
+            loadingElement.style.display = 'none';
+            profileForm.style.display = 'block';
+        } else {
+            console.error('Failed to fetch user details.');
         }
+    } catch (error) {
+        console.error('Error while trying to view profile', error);
     }
-
+};
 
 // Logout function
-function logout() {
+window.logout = function logout() {
     // Clear the access token from localStorage
     localStorage.removeItem('access_token');
-    
+
     // Clear the forward history
     history.pushState(null, null, location.href);
     window.onpopstate = function () {
-    history.go(1);  // Prevent forward navigation after logout
+        history.go(1);  // Prevent forward navigation after logout
     };
-    
-    window.location.href = 'login.html'; // Change this to your actual login page URL
-}
 
-
+    window.location.href = 'login.html';  // Change this to your actual login page URL
+};

@@ -2,11 +2,7 @@ variable "region" {
   type    = string
   default = "us-east-2"
 }
-variable "lambda_zipped_bucket"{
-  type=string
-  default = "very-unique-66-lambda"
-  description="Enter Unique Name for Lambda Bucket"
-}
+
 
 variable "lambda_names" {
   type    = list(string)

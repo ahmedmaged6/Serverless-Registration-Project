@@ -1,5 +1,11 @@
 #Lambda Implementation
-
+resource "random_string" "lambda_suffix" {
+  length  = 4
+  upper   = false
+  lower   = true
+  numeric  = true
+  special = false
+}
 #IAM Execution Role for all lambda functions
 data "aws_iam_policy_document" "assume_role" {
   statement {
@@ -14,7 +20,7 @@ data "aws_iam_policy_document" "assume_role" {
   }
 }
 resource "aws_iam_role" "iam_for_lambda" {
-  name               = "iam_for_lambdaa"
+  name               = "iam_for_lambdaa_${random_string.lambda_suffix.result}"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
@@ -33,7 +39,7 @@ data "aws_iam_policy_document" "lambda_logging_policy" {
 }
 
 resource "aws_iam_policy" "lambda_logging_policy" {
-  name   = "lambda_log_policyyy"
+  name   = "lambda_log_policy_${random_string.lambda_suffix.result}"
   policy = data.aws_iam_policy_document.lambda_logging_policy.json
 }
 
@@ -56,8 +62,10 @@ data "aws_iam_policy_document" "lambda_access_s3_policy" {
   }
 }
 
+
+
 resource "aws_iam_policy" "lambda_access_s3_policy" {
-  name   = "lambda_access_s3_policyyy"
+  name   = "lambda_access_s3_policy_${random_string.lambda_suffix.result}"
   policy = data.aws_iam_policy_document.lambda_access_s3_policy.json
 }
 
@@ -70,13 +78,13 @@ resource "aws_iam_role_policy_attachment" "lambda_access_s3_attachment" {
 data "archive_file" "lambda_zip_file" {
   for_each    = toset(var.lambda_names)
   type        = "zip"
-  source_dir   = "${path.module}/../lambda_src_code/${each.value}"
-  output_path = "../temp/lambda_src_zipped/${each.value}_payload.zip"
+  source_dir   = "${path.module}/../../../lambda_src_code/${each.value}"
+  output_path = "${path.module}/lambda_src_zipped/${each.value}_payload.zip"
 }
 
 
 resource "aws_s3_bucket" "lambda_zipped" {
-    bucket = var.lambda_zipped_bucket
+    bucket = "very-unique-lambda-bucket-${random_string.lambda_suffix.result}"
     depends_on = [ aws_cognito_user_pool_client.app_client_1 ]
 }
 
@@ -85,7 +93,7 @@ resource "aws_s3_object" "object" {
   for_each = toset(var.lambda_names)
   bucket = aws_s3_bucket.lambda_zipped.id
   key    = "${each.value}.zip"
-  source = "${path.module}/../temp/lambda_src_zipped/${each.value}_payload.zip"
+  source = "${path.module}/lambda_src_zipped/${each.value}_payload.zip"
   
   depends_on = [aws_s3_bucket.lambda_zipped]
   
@@ -112,9 +120,9 @@ resource "aws_lambda_function" "lambda" {
   handler          = "${each.value}.lambda_handler"
   runtime          = "python3.9"
   depends_on       = [aws_iam_role.iam_for_lambda]
-    environment {
+  environment {
     variables = {
-      BUCKET_NAME = var.lambda_zipped_bucket
+      BUCKET_NAME = aws_s3_bucket.lambda_zipped.id
     }
   }
 }
