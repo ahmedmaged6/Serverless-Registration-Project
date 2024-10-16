@@ -1,6 +1,6 @@
 Draft/
 node_modules/
-lambda_zipped/
+**/lambda_src_zipped/*
 notes.txt
 
 **/temp/*
