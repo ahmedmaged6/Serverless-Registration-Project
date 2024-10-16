@@ -2,8 +2,7 @@
 
 # Serverless Registration Project
 
-This project is a serverless web application that handles user registration, login, and profile management using AWS services. The infrastructure is fully deployed using Terraform.  
-[Click here to view the live project](http://serverless-register-demo.s3-website.us-east-2.amazonaws.com/)  
+This project is a serverless web application that handles user registration, login, and profile management using AWS services. The infrastructure is fully deployed using Terraform.  [Click here to view the live project](http://serverless-register-demo.s3-website.us-east-2.amazonaws.com/)  
 
 ## Technologies Used
 - **Frontend**: HTML, CSS, JavaScript (hosted on S3 as a static website)
