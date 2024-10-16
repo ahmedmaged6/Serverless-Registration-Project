@@ -92,6 +92,7 @@ Serverless-Registration-Project/
 
 --- 
 **Deployed Version:**  
+
 [Click here to view the live project](https://inshalah-tzbot.s3.amazonaws.com/index.html)  
 --- 
 
