@@ -1,6 +1,7 @@
 # Serverless Registration Project
 
 This project is a serverless web application that handles user registration, login, and profile management using AWS services. The infrastructure is fully deployed using Terraform.
+
 [Click here to view the live project](http://serverless-register-demo.s3-website.us-east-2.amazonaws.com/)  
 
 ## Technologies Used
@@ -40,6 +41,15 @@ cd Serverless-Registration-Project/terraform/
     ```bash
     terraform destroy -var 's3_website_bucket=value'
     ```
+
+## Notes
+- Ensure you provide a **unique S3 bucket name** when running the Terraform commands.
+- **AWS Configuration:** Before running Terraform, configure your AWS credentials using `aws configure`. Set up your access key, secret key, and default region.  
+  Example:
+  ```bash
+  aws configure
+  ```
+  - **Default region:** `us-east-2` (this is where the S3 bucket will be deployed)
 
 ## Project Structure
 ```
@@ -87,15 +97,6 @@ Serverless-Registration-Project/
 
 ```
 
-## Important Notes
-- Ensure you provide a **unique S3 bucket name** when running the Terraform commands.
-- **AWS Configuration:** Before running Terraform, configure your AWS credentials using `aws configure`. Set up your access key, secret key, and default region.  
-  Example:
-  ```bash
-  aws configure
-  ```
-  - **Default region:** `us-east-2` (this is where the S3 bucket will be deployed)
-    
 ---
 
 
