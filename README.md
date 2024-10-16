@@ -53,7 +53,6 @@ Before running Terraform, configure your AWS credentials using `aws configure`. 
 
 Here's how you can add the **Notes** section to your README:
 
----
 
 ## Notes
 
