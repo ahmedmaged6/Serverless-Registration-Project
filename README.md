@@ -1,6 +1,7 @@
 # Serverless Registration Project
 
 This project is a serverless web application that handles user registration, login, and profile management using AWS services. The infrastructure is fully deployed using Terraform.
+[Click here to view the live project](https://inshalah-tzbot.s3.amazonaws.com/index.html)  
 
 ## Technologies Used
 - **Frontend**: HTML, CSS, JavaScript (hosted on S3 as a static website)
@@ -91,8 +92,5 @@ Serverless-Registration-Project/
 - The frontend is hosted on S3, and the backend functions handle the user registration flow using AWS Cognito.
 
 --- 
-**Deployed Version:**  
 
-[Click here to view the live project](https://inshalah-tzbot.s3.amazonaws.com/index.html)  
---- 
 
