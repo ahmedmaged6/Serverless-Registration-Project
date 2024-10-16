@@ -60,7 +60,6 @@ Here's how you can add the **Notes** section to your README:
   - Lambda function names.
   - Lambda execution roles and policies.
 
----
 ## Project Structure
 ```
 Serverless-Registration-Project/
