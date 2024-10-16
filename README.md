@@ -37,7 +37,7 @@ cd Serverless-Registration-Project/terraform/
     ```
 4. **To destroy the infrastructure**:
     ```bash
-    terraform destroy -var 'value'
+    terraform destroy -var 's3_website_bucket=value'
     ```
 
 ## Project Structure
