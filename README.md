@@ -50,6 +50,18 @@ Before running Terraform, configure your AWS credentials using `aws configure`. 
     terraform destroy -var 's3_website_bucket=value'
     ```
 
+
+Here's how you can add the **Notes** section to your README:
+
+---
+
+## Notes
+
+- A **random provider** was used in the Terraform configuration to generate unique names for AWS resources that require globally unique names, such as:
+  - Lambda function names.
+  - Lambda execution roles and policies.
+
+---
 ## Project Structure
 ```
 Serverless-Registration-Project/
