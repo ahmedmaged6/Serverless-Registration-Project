@@ -91,5 +91,3 @@ Serverless-Registration-Project/
 - The frontend is hosted on S3, and the backend functions handle the user registration flow using AWS Cognito.
 
 --- 
-
-This README provides a clear, simple overview of your project and how to set it up!
