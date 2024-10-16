@@ -30,7 +30,7 @@ Before running Terraform, configure your AWS credentials using `aws configure`. 
   ```bash
   aws configure
   ```
-  - **Default region:** `us-east-2` (this is where the S3 bucket will be deployed)
+  - **Default region:** `us-east-2` (this is where the aws resources will be deployed)
 
 ### 3. Initialize and deploy with Terraform:
 1. **Initialize Terraform**:
