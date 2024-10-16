@@ -35,7 +35,7 @@ cd Serverless-Registration-Project/terraform/
     ```bash
     terraform apply -var 's3_website_bucket=value'
     ```
-4. **To destroy the infrastructure**:
+4. **To destroy the infrastructure** (replace `value` with your unique S3 bucket name):
     ```bash
     terraform destroy -var 's3_website_bucket=value'
     ```
